@@ -28,9 +28,10 @@ module Pickle
 
     def set_step_mother_from_object_space
       return if @@step_mother
-      # This is getting ugly, I have not been able to find a  good way
-      # to get at the StepMother that is running the features from
-      # here. But ... we can fetch her from the object space.
+
+      # This is getting ugly: there seems to be no good way to get at
+      # the StepMother that is running the features from here. But ...
+      # we can fetch her from the object space.
       ObjectSpace.each_object(Cucumber::StepMother) { |o| @@step_mother = o }
       # There she is in all her glory. Can haz shower now?
       @@step_mother = :undefined unless @@step_mother
@@ -40,13 +41,6 @@ module Pickle
     def set_rb_language
       return if @@rb_language
       set_step_mother_from_object_space
-
-      # This is getting ugly, I have not been able to find a  good way
-      # to get at the StepMother that is running the features from
-      # here. But ... we can fetch her from the object space.
-      ObjectSpace.each_object(Cucumber::StepMother) { |o| @@step_mother = o }
-      # There she is in all her glory. Now I feel like I need a shower
-
       @@rb_language = if @@step_mother == :undefined
                         :undefined
                       else
